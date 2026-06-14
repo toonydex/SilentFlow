@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SilentFlow</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+    <header>
+        <h1>SilentFlow</h1>
+        <p>Quiet Progress, Visible Results</p>
+    </header>
+
+    <div class="container">
+
+        <div class="card">
+            <h2>Today's Goal</h2>
+            <p id="goal">0h / 4h</p>
+        </div>
+
+        <div class="card">
+            <h2>Current Streak</h2>
+            <p id="streak">0 Days</p>
+        </div>
+
+        <div class="card">
+            <h2>Tasks Remaining</h2>
+            <p id="remaining">0</p>
+        </div>
+
+    </div>
+
+    <section class="tasks">
+        <h2>Homework Tracker</h2>
+
+        <input type="text" id="taskInput" placeholder="Enter task...">
+        <button onclick="addTask()">Add Task</button>
+
+        <ul id="taskList"></ul>
+    </section>
+
+    <section class="timer">
+        <h2>Focus Timer</h2>
+
+        <div id="timerDisplay">25:00</div>
+
+        <button onclick="startTimer()">Start</button>
+        <button onclick="pauseTimer()">Pause</button>
+        <button onclick="resetTimer()">Reset</button>
+    </section>
+
+    <section class="reflection">
+        <h2>Daily Reflection</h2>
+
+        <textarea
+            id="reflection"
+            placeholder="What did I learn today?"
+        ></textarea>
+    </section>
+
+    <footer>
+    <p>
+        The quieter you work,
+        the louder your become.
+    </p>
+</footer>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
