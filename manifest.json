@@ -1,21 +1,20 @@
 {
-    "name":"SilentFlow",
-    "short_name":"SilentFlow",
-    "start_url":"./",
-    "display":"standalone",
-    "background_color":"#0f172a",
-    "theme_color":"#0f172a",
+  "name": "SilentFlow",
+  "short_name": "SilentFlow",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "icons": [
     {
-  "icons":[
-    {
-      "src":"assets/Logo.png",
-      "sizes":"192x192",
-      "type":"image/png"
+      "src": "assets/Logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
     },
     {
-      "src":"assets/Logo.png",
-      "sizes":"512x512",
-      "type":"image/png"
+      "src": "assets/Logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ]
 }
