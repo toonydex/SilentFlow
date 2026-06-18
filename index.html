@@ -1,75 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SilentFlow</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" href="assets/logo.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SilentFlow</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 </head>
 <body>
 
-    <header>
-        <h1>SilentFlow</h1>
-        <p>Quiet Progress, Visible Results</p>
-    </header>
-
-    <div class="container">
-
-        <div class="card">
-            <h2>Today's Goal</h2>
-            <p id="goal">0h / 4h</p>
-        </div>
-
-        <div class="card">
-            <h2>Current Streak</h2>
-            <p id="streak">0 Days</p>
-        </div>
-
-        <div class="card">
-            <h2>Tasks Remaining</h2>
-            <p id="remaining">0</p>
-        </div>
-
+  <!-- Sidebar Nav -->
+  <nav class="sidebar">
+    <div class="logo">
+      <span class="logo-icon">⟁</span>
+      <span class="logo-text">SilentFlow</span>
     </div>
+    <ul class="nav-links">
+      <li class="nav-item active" data-section="dashboard">
+        <span class="nav-icon">◈</span> Dashboard
+      </li>
+      <li class="nav-item" data-section="tasks">
+        <span class="nav-icon">◻</span> Tasks
+      </li>
+      <li class="nav-item" data-section="timer">
+        <span class="nav-icon">◷</span> Focus Timer
+      </li>
+      <li class="nav-item" data-section="reflection">
+        <span class="nav-icon">✦</span> Reflections
+      </li>
+    </ul>
+    <div class="sidebar-footer">
+      <div class="streak-badge">
+        <span id="sidebarStreak">0</span>
+        <span class="streak-label">day streak 🔥</span>
+      </div>
+    </div>
+  </nav>
 
-    <section class="tasks">
-        <h2>Homework Tracker</h2>
+  <!-- Mobile Bottom Nav -->
+  <nav class="bottom-nav">
+    <button class="bnav-btn active" data-section="dashboard">◈<span>Home</span></button>
+    <button class="bnav-btn" data-section="tasks">◻<span>Tasks</span></button>
+    <button class="bnav-btn" data-section="timer">◷<span>Timer</span></button>
+    <button class="bnav-btn" data-section="reflection">✦<span>Reflect</span></button>
+  </nav>
 
-        <input type="text" id="taskInput" placeholder="Enter task...">
-        <button onclick="addTask()">Add Task</button>
+  <!-- Main Content -->
+  <main class="main">
 
-        <ul id="taskList"></ul>
+    <!-- DASHBOARD -->
+    <section class="section active" id="section-dashboard">
+      <div class="section-header">
+        <div>
+          <p class="section-eyebrow">Good to see you</p>
+          <h1 class="section-title">Dashboard</h1>
+        </div>
+        <div class="date-badge" id="todayDate"></div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card accent-purple">
+          <div class="stat-label">Study Goal</div>
+          <div class="stat-value" id="goalDisplay">0h / 4h</div>
+          <div class="stat-bar"><div class="stat-bar-fill" id="goalBar"></div></div>
+        </div>
+        <div class="stat-card accent-pink">
+          <div class="stat-label">Current Streak</div>
+          <div class="stat-value" id="streakDisplay">0 days</div>
+          <div class="stat-sub">Keep it going!</div>
+        </div>
+        <div class="stat-card accent-blue">
+          <div class="stat-label">Tasks Today</div>
+          <div class="stat-value" id="taskStatsDisplay">0 / 0</div>
+          <div class="stat-bar"><div class="stat-bar-fill" id="taskBar" style="background: var(--blue)"></div></div>
+        </div>
+        <div class="stat-card accent-green">
+          <div class="stat-label">Focus Sessions</div>
+          <div class="stat-value" id="sessionsDisplay">0</div>
+          <div class="stat-sub">sessions today</div>
+        </div>
+      </div>
+
+      <div class="dash-bottom">
+        <div class="dash-card">
+          <h3 class="card-title">Today's Tasks</h3>
+          <ul class="mini-task-list" id="miniTaskList">
+            <li class="empty-state">No tasks yet — add some in Tasks ✦</li>
+          </ul>
+        </div>
+        <div class="dash-card">
+          <h3 class="card-title">Last Reflection</h3>
+          <p class="reflection-preview" id="reflectionPreview">Your reflections will appear here.</p>
+        </div>
+      </div>
     </section>
 
-    <section class="timer">
-        <h2>Focus Timer</h2>
+    <!-- TASKS -->
+    <section class="section" id="section-tasks">
+      <div class="section-header">
+        <div>
+          <p class="section-eyebrow">Stay on track</p>
+          <h1 class="section-title">Tasks</h1>
+        </div>
+        <div class="progress-pill" id="taskProgressPill">0 / 0 done</div>
+      </div>
 
-        <div id="timerDisplay">25:00</div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="taskProgressBar"></div>
+      </div>
 
-        <button onclick="startTimer()">Start</button>
-        <button onclick="pauseTimer()">Pause</button>
-        <button onclick="resetTimer()">Reset</button>
+      <div class="filter-row">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="Study">Study</button>
+        <button class="filter-btn" data-filter="Personal">Personal</button>
+        <button class="filter-btn" data-filter="Project">Project</button>
+      </div>
+
+      <div class="task-list" id="taskList"></div>
+
+      <div class="add-task-area" id="addTaskArea">
+        <input type="text" id="taskInput" placeholder="What do you need to do?" class="task-input" />
+        <div class="task-meta-row">
+          <div class="tag-group" id="categoryGroup">
+            <button class="tag-btn active" data-val="Study">Study</button>
+            <button class="tag-btn" data-val="Personal">Personal</button>
+            <button class="tag-btn" data-val="Project">Project</button>
+          </div>
+          <div class="tag-group" id="priorityGroup">
+            <button class="tag-btn priority-high active" data-val="high">High</button>
+            <button class="tag-btn priority-med" data-val="medium">Med</button>
+            <button class="tag-btn priority-low" data-val="low">Low</button>
+          </div>
+        </div>
+        <button class="btn-primary" id="addTaskBtn">+ Add Task</button>
+      </div>
     </section>
 
-    <section class="reflection">
-        <h2>Daily Reflection</h2>
+    <!-- TIMER -->
+    <section class="section" id="section-timer">
+      <div class="section-header">
+        <div>
+          <p class="section-eyebrow">Deep work mode</p>
+          <h1 class="section-title">Focus Timer</h1>
+        </div>
+      </div>
 
-        <textarea
-            id="reflection"
-            placeholder="What did I learn today?"
-        ></textarea>
+      <div class="timer-card">
+        <div class="timer-mode-row">
+          <button class="mode-btn active" data-mode="pomodoro" data-mins="25">Pomodoro</button>
+          <button class="mode-btn" data-mode="short" data-mins="5">Short Break</button>
+          <button class="mode-btn" data-mode="long" data-mins="15">Long Break</button>
+        </div>
+
+        <div class="timer-ring-wrap">
+          <svg class="timer-ring" viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="88" class="ring-bg" />
+            <circle cx="100" cy="100" r="88" class="ring-fill" id="timerRing" />
+          </svg>
+          <div class="timer-inner">
+            <div class="timer-display" id="timerDisplay">25:00</div>
+            <div class="timer-label" id="timerLabel">Focus</div>
+          </div>
+        </div>
+
+        <div class="timer-controls">
+          <button class="timer-btn" id="startBtn" onclick="startTimer()">Start</button>
+          <button class="timer-btn secondary" id="pauseBtn" onclick="pauseTimer()" disabled>Pause</button>
+          <button class="timer-btn secondary" onclick="resetTimer()">Reset</button>
+        </div>
+
+        <div class="session-count">
+          Sessions today: <strong id="sessionCount">0</strong>
+        </div>
+      </div>
     </section>
 
-    <footer>
-    <p>
-        The quieter you work,
-        the louder your become.
-    </p>
-</footer>
-    <script src="script.js"></script>
+    <!-- REFLECTION -->
+    <section class="section" id="section-reflection">
+      <div class="section-header">
+        <div>
+          <p class="section-eyebrow">End of day</p>
+          <h1 class="section-title">Reflections</h1>
+        </div>
+      </div>
 
+      <div class="reflection-card">
+        <label class="reflect-label">What did I learn today?</label>
+        <textarea id="reflectionInput" class="reflect-textarea" placeholder="Write your thoughts..."></textarea>
+
+        <label class="reflect-label" style="margin-top:16px">How do I feel about today's progress?</label>
+        <div class="mood-row">
+          <button class="mood-btn" data-mood="😔">😔</button>
+          <button class="mood-btn" data-mood="😐">😐</button>
+          <button class="mood-btn" data-mood="🙂">🙂</button>
+          <button class="mood-btn" data-mood="😄">😄</button>
+          <button class="mood-btn" data-mood="🔥">🔥</button>
+        </div>
+
+        <button class="btn-primary" id="saveReflectionBtn">Save Reflection</button>
+        <div class="save-toast" id="saveToast">Saved ✓</div>
+      </div>
+
+      <div class="reflection-history" id="reflectionHistory"></div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
 </body>
-
 </html>
